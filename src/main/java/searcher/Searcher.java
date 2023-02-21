@@ -1,7 +1,10 @@
+package searcher;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +22,8 @@ public class Searcher {
             while ((line = br.readLine()) != null) {
                 String[] tokens = line.split(",");
                 if (tokens[column - 1]
-                        .replaceAll("^\"|\"$", "")      // убираем ковычки из начала и конца строки
+                        //.replaceAll("^\"|\"$", "")
+                        .substring(1)
                         .toLowerCase()
                         .startsWith(userInput.toLowerCase())) {
                     result.put(tokens[column - 1], "[" + line + "]");
