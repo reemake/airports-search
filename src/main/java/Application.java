@@ -11,7 +11,7 @@ public class Application {
             throw new ArgumentsValidationException("Параметр не задан!");
         }
         else if (args.length == 1) {
-            if (Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[0]) > 13)
+            if (Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[0]) > 14)
                 throw new ArgumentsValidationException("Некорректный номер колонки!");
         }
         else {

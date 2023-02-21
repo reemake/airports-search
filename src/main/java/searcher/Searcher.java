@@ -12,6 +12,13 @@ public class Searcher {
 
     private static Map<String, String> result;
 
+    public static void printFoundLines() {
+        for (Map.Entry<String, String> entry: result.entrySet()) {
+            System.out.println(entry.getKey() + entry.getValue());
+        }
+    }
+
+
     public static void search(String userInput, int column) throws IOException {
         long start = System.currentTimeMillis();
 
@@ -21,9 +28,9 @@ public class Searcher {
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/airports.csv"))) {
             while ((line = br.readLine()) != null) {
                 String[] tokens = line.split(",");
+                if (column >= 2 && column <= 6 || column >= 11 && column <= 14)
+                    tokens[column - 1] = tokens[column - 1].substring(1);        // если колонка строковая - удаляем кавычку
                 if (tokens[column - 1]
-                        //.replaceAll("^\"|\"$", "")
-                        .substring(1)
                         .toLowerCase()
                         .startsWith(userInput.toLowerCase())) {
                     result.put(tokens[column - 1], "[" + line + "]");
@@ -35,9 +42,7 @@ public class Searcher {
         long finish = System.currentTimeMillis();
         long elapsed = finish - start;
 
-        for (Map.Entry<String, String> entry: result.entrySet()) {
-            System.out.println(entry.getKey() + entry.getValue());
-        }
+        printFoundLines();
         System.out.println("Количество найденных строк: " + lineCounter);
         System.out.println("Время, затраченное на поиск: " + elapsed + " мс");
     }
